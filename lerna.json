@@ -1,0 +1,18 @@
+{
+  "packages": ["packages/*"],
+  "npmClient": "yarn",
+  "useWorkspaces": true,
+  "version": "independent",
+  "ignoreChanges": ["**/*.md", "yarn.lock"],
+  "command": {
+    "version": {
+      "exact": true
+    },
+    "publish": {
+      "conventionalCommits": true,
+      "createRelease": "github",
+      "registry": "https://npm.pkg.github.com",
+      "message": "chore(release): updated release notes and package versions"
+    }
+  }
+}

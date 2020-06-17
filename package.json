@@ -1,0 +1,45 @@
+{
+  "name": "monorepo-demo",
+  "repository": "git@github.com:nachiketmistry/monorepo-demo.git",
+  "author": "Nachiket Mistry <nachiketmistry@gmail.com>",
+  "license": "MIT",
+  "private": true,
+  "workspaces": [
+    "packages/*"
+  ],
+  "scripts": {
+    "commit": "git-cz",
+    "setup": "yarn install && yarn run build",
+    "lerna": "lerna",
+    "diff": "lerna diff",
+    "test": "lerna run test",
+    "clean": "lerna clean --yes",
+    "clean-build": "rimraf ./packages/*/dist",
+    "clean-modules": "rimraf ./node_modules/ ./packages/*/node_modules/ ./yarn.lock",
+    "clean-all": "yarn clean-build && yarn clean-modules",
+    "build": "lerna run build --parallel",
+    "publish-beta": "cross-env HUSKY_BYPASS=true lerna publish --conventional-prerelease --preid beta",
+    "publish-stable": "cross-env HUSKY_BYPASS=true lerna publish --conventional-graduate"
+  },
+  "devDependencies": {
+    "@commitlint/cli": "^8.3.5",
+    "@commitlint/config-conventional": "^8.3.4",
+    "commitizen": "^4.1.2",
+    "cross-env": "^7.0.2",
+    "cz-lerna-changelog": "^2.0.2",
+    "husky": "^4.2.5",
+    "lerna": "^3.22.1",
+    "release": "^6.1.0",
+    "rimraf": "^3.0.2"
+  },
+  "config": {
+    "commitizen": {
+      "path": "./node_modules/cz-lerna-changelog"
+    }
+  },
+  "husky": {
+    "hooks": {
+      "commit-msg": "[[ -n $HUSKY_BYPASS ]] || commitlint -E HUSKY_GIT_PARAMS"
+    }
+  }
+}
