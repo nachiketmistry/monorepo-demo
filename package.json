@@ -1,6 +1,5 @@
 {
   "name": "monorepo-demo",
-  "repository": "git@github.com:nachiketmistry/monorepo-demo.git",
   "author": "Nachiket Mistry <nachiketmistry@gmail.com>",
   "license": "MIT",
   "private": true,
@@ -41,5 +40,9 @@
     "hooks": {
       "commit-msg": "[[ -n $HUSKY_BYPASS ]] || commitlint -E HUSKY_GIT_PARAMS"
     }
+  },
+  "repository": "github:nachiketmistry/monorepo-demo.git",
+  "publishConfig": {
+    "registry":"https://npm.pkg.github.com/"
   }
 }
