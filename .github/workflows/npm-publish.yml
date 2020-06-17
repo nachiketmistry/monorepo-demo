@@ -32,6 +32,14 @@ jobs:
         with:
           node-version: 12
           registry-url: https://registry.npmjs.org/
+      - name: restore node_modules
+        uses: actions/cache@master
+        with:
+          path: |
+            node_modules
+            */*/node_modules
+            /tmp/**/*
+          key: ${{ runner.os }}-${{ hashFiles('yarn.lock') }}
       - name: publish stable package to npm
         run: yarn run publish-stable --yes
         env:
@@ -47,6 +55,14 @@ jobs:
         with:
           node-version: 12
           registry-url: https://npm.pkg.github.com/
+      - name: restore node_modules
+        uses: actions/cache@master
+        with:
+          path: |
+            node_modules
+            */*/node_modules
+            /tmp/**/*
+          key: ${{ runner.os }}-${{ hashFiles('yarn.lock') }}
       - name: publish stable package to github
         run: yarn run publish-stable --yes
         env:
