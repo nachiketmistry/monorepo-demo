@@ -10,16 +10,20 @@ on:
 
 jobs:
   build:
+    name: Build Repo
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
       - uses: actions/setup-node@v1
         with:
           node-version: 12
-      - run: yarn install
-      - run: yarn build
+      - name: Install repo dependencies
+        run: yarn install
+      - name: Build repo packages
+        run: yarn build
 
   publish-npm:
+    name: Publish to npm
     needs: build
     runs-on: ubuntu-latest
     steps:
@@ -28,11 +32,13 @@ jobs:
         with:
           node-version: 12
           registry-url: https://registry.npmjs.org/
-      - run: yarn run publish-stable --yes
+      - name: publish stable package to npm
+        run: yarn run publish-stable --yes
         env:
           NODE_AUTH_TOKEN: ${{secrets.npm_token}}
 
   publish-gpr:
+    name: Publish to github
     needs: build
     runs-on: ubuntu-latest
     steps:
@@ -41,6 +47,7 @@ jobs:
         with:
           node-version: 12
           registry-url: https://npm.pkg.github.com/
-      - run: yarn run publish-stable --yes
+      - name: publish stable package to github
+        run: yarn run publish-stable --yes
         env:
           NODE_AUTH_TOKEN: ${{secrets.GITHUB_TOKEN}}
